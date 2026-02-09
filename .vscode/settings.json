@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "HouseExploration.slnx"
+    "dotnet.defaultSolution": "spring-2026-threshold.slnx"
 }
