@@ -4,6 +4,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
+    public static FirstPersonController i; //only one should exist per season
+
+    private bool movementActive = true;
+    public bool MovementActive => movementActive;
+
     private CharacterController controller;
     private PlayerInputActions input;
 
@@ -42,6 +47,10 @@ public class FirstPersonController : MonoBehaviour
 
     void Awake()
     {
+        if(i == null){
+            i = this;
+        }
+
         controller = GetComponent<CharacterController>();
         input = new PlayerInputActions();
     }
@@ -71,8 +80,17 @@ public class FirstPersonController : MonoBehaviour
     {
         input.Player.Disable();
     }
+    public void changePlayerControlState(bool move){
+        movementActive = move;
+    }
+    void Update(){
+        if(movementActive)
+        {
+            HandleUpdate();
+        }
+    }
 
-    void Update()
+    void HandleUpdate()
     {
         HandleLook();
         HandleMovement();
@@ -141,6 +159,7 @@ public class FirstPersonController : MonoBehaviour
     }
     private void TryInteract()
     {
+        if(movementActive){
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
         {
@@ -151,6 +170,7 @@ public class FirstPersonController : MonoBehaviour
             {
                 interactable.OnPlayerInteract();
             }
+        }
         }
     }
     private void HandleFootsteps()
