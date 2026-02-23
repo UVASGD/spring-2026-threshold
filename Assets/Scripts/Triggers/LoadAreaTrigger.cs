@@ -25,12 +25,12 @@ public class LoadAreaTrigger : MonoBehaviour
         //start the fadeout
         StartCoroutine(Fader.i.roomTransition()); //start the coroutine, as other actions occur during this
 
+        yield return new WaitForSeconds(0.75f);
+        StartCoroutine(AreaTextPopup.i.showAreaText(areaText));
+        
         FirstPersonController.i.gameObject.transform.position = teleportPosition;
 
-        SceneManager.LoadScene(sceneAdditiveName);
-        
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(AreaTextPopup.i.showAreaText(areaText));
+        SceneManager.LoadScene(sceneAdditiveName, LoadSceneMode.Single);
 
         yield return new WaitForSeconds(2f);
 
