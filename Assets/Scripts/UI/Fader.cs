@@ -16,21 +16,6 @@ public class Fader : MonoBehaviour
         lerpImage = GetComponent<Image>();
     }
 
-    void Start()
-    {
-        
-    }
-
-    //fade presets
-    public IEnumerator roomTransition()
-    {
-        yield return new WaitForEndOfFrame();
-        yield return fadeOut(0.5f);
-
-        yield return new WaitForSeconds(0.75f);
-        yield return fadeIn(1f);
-    }
-
     //fadeout/fadein transitions
     public IEnumerator fadeOut(float lerpTime)
     {

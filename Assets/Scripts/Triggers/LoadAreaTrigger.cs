@@ -22,17 +22,32 @@ public class LoadAreaTrigger : MonoBehaviour
 
     public IEnumerator enterTrigger()
     {
+        //update the text string
+        AreaTextPopup.i.updateText(areaText);
+
         //start the fadeout
-        StartCoroutine(Fader.i.roomTransition()); //start the coroutine, as other actions occur during this
-
-        yield return new WaitForSeconds(0.75f);
-        StartCoroutine(AreaTextPopup.i.showAreaText(areaText));
+        FirstPersonController.i.changePlayerControlState(false); //disable player control
         
-        FirstPersonController.i.gameObject.transform.position = teleportPosition;
+        yield return Fader.i.fadeOut(0.5f);
 
-        SceneManager.LoadScene(sceneAdditiveName, LoadSceneMode.Single);
+        yield return AreaTextPopup.i.FadeIn(); //start the coroutine for room name display
+        
+        FirstPersonController.i.toggleGravity(false);
+        yield return FirstPersonController.i.gameObject.transform.position = teleportPosition;
 
-        yield return new WaitForSeconds(2f);
+        yield return SceneManager.LoadSceneAsync(sceneAdditiveName, LoadSceneMode.Single);
+
+        yield return new WaitForSeconds(0.25f);
+        
+        FirstPersonController.i.toggleGravity(true);
+        FirstPersonController.i.changePlayerControlState(true); //return player control
+
+        yield return Fader.i.fadeIn(0.25f);
+
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return AreaTextPopup.i.FadeOut();
 
         Destroy(this.gameObject);
     }

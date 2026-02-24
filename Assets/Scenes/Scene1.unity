@@ -3914,6 +3914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadAnotherScene
       objectReference: {fileID: 0}
+    - target: {fileID: 7847354932518693938, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
+      propertyPath: areaText
+      value: Basement Scene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

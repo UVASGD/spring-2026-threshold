@@ -61,6 +61,17 @@ public class FirstPersonController : MonoBehaviour
 
         cameraStartPos = cameraTransform.localPosition;
     }
+    public void toggleGravity(bool on)
+    {
+        if (on)
+        {
+            gravity = 0f;
+        }
+        else
+        {
+            gravity = -9.81f;
+        }
+    }
     void OnEnable()
     {
         input.Player.Enable();
