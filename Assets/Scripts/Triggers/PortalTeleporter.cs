@@ -5,7 +5,7 @@ public class PortalTeleporter : MonoBehaviour
 {
     [Header("Settings")]
     public Transform reciever; 
-    public Transform player;
+    [HideInInspector] public Transform player;
 
     [Header("Debug")]
     public bool playerIsOverlapping = false;
@@ -17,7 +17,7 @@ public class PortalTeleporter : MonoBehaviour
     {
         if (player == null)
         {
-             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+             GameObject playerObj = FirstPersonController.i.gameObject;
              if (playerObj != null) player = playerObj.transform;
         }
     }
@@ -44,8 +44,6 @@ public class PortalTeleporter : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsOverlapping = true;
-            // Note: We do NOT reset isJustArrived here. 
-            // We wait for OnTriggerExit to do that.
         }
     }
 

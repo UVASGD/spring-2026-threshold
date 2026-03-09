@@ -16,4 +16,13 @@ public class PlayerSFX : MonoBehaviour
     {
         playerSource.PlayOneShot(clip);
     }
+    public void PlaySFX(AudioClip clip, float volume)
+    {
+        float preVolume = playerSource.volume;
+        playerSource.volume = volume;
+        
+        playerSource.PlayOneShot(clip);
+
+        playerSource.volume = preVolume; //reset the volume
+    }
 }
