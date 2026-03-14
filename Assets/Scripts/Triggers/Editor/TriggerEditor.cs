@@ -23,7 +23,11 @@ public class TriggerEditor : Editor
             "Enable/Disable Player Control",
             "Look at an Object",
             "Wait for set time",
-            "Apply Camera Shake"
+            "Apply Camera Shake",
+            "Display text onscreen",
+            "Fade screen in/out",
+            "Teleport Player",
+            "Close a door"
         };
 
         Action[] effectActions;
@@ -36,7 +40,11 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new RemovePlayerMovementEffect()),
                 () => dynamicTrigger.addEffect(new LookAtEffect()),
                 () => dynamicTrigger.addEffect(new WaitEffect()),
-                () => dynamicTrigger.addEffect(new ShakeCameraEffect())
+                () => dynamicTrigger.addEffect(new ShakeCameraEffect()),
+                () => dynamicTrigger.addEffect(new DisplayMessageEffect()),
+                () => dynamicTrigger.addEffect(new FadeOutEffect()),
+                () => dynamicTrigger.addEffect(new TeleportPlayerEffect()),
+                () => dynamicTrigger.addEffect(new CloseDoorEffect())
             };
         }
         else
