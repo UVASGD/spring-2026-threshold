@@ -61,6 +61,28 @@ public class FirstPersonController : MonoBehaviour
 
         cameraStartPos = cameraTransform.localPosition;
     }
+    // Sets the camera rotation and updates cameraPitch to match
+    public void SetCameraRotation(Quaternion rotation)
+    {
+        // Keep controller yaw and camera pitch in sync with scripted world rotation.
+        Vector3 worldEuler = rotation.eulerAngles;
+
+        transform.rotation = Quaternion.Euler(0f, worldEuler.y, 0f);
+
+        // Unity's Euler angles wrap at 360, so convert pitch to -180..180.
+        float pitch = worldEuler.x;
+        if (pitch > 180f) pitch -= 360f;
+        cameraPitch = Mathf.Clamp(pitch, -90f, 90f);
+
+        cameraTransform.localEulerAngles = new Vector3(cameraPitch, 0f, 0f);
+
+        
+    }
+    private bool lookEnabled = true;
+    public void SetLookEnabled(bool enabled)
+    {
+        lookEnabled = enabled;
+    }
     public void toggleGravity(bool on)
     {
         if (on)
@@ -124,6 +146,8 @@ public class FirstPersonController : MonoBehaviour
     }
     private void HandleLook()
     {
+        if (!lookEnabled) return;
+
         Vector2 lookInput = look * lookSensitivity;
 
         // Vertical camera rotation

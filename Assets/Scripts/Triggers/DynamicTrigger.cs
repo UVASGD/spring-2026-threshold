@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +8,11 @@ public class DynamicTrigger : MonoBehaviour
     [SerializeField] bool retrigger; //if false, disable the trigger after it is triggered once
     [SerializeReference]
     [SerializeField] List<TriggerEffect> triggerEffects;
-    public void runEffects()
+    public IEnumerator runEffects()
     {
         foreach (var effect in triggerEffects)
         {
-            effect.onTriggerEffect();
+            yield return effect.onTriggerEffect();
         }
 
         this.gameObject.SetActive(retrigger); //set to inactive if retrigger is false
@@ -25,7 +26,7 @@ public class DynamicTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("Generic trigger entered");
-            runEffects();
+            StartCoroutine(runEffects());
         }
     }
 }

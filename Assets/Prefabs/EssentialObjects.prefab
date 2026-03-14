@@ -30,8 +30,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8318671082257427989}
   - {fileID: 5445619438603368782}
+  - {fileID: 5476749925256578016}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5248251795589871501
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3fe81f043521f4e94507fc8e15ae65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EssentialObjects
---- !u!1001 &4437717816033309661
+--- !u!1001 &208705565424229928
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -54,25 +54,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8966585599756081770}
     m_Modifications:
-    - target: {fileID: 208457415299899274, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 5013907258785252337, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5684716531877076424, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.34531
       objectReference: {fileID: 0}
     - target: {fileID: 5684716531877076424, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.81205
       objectReference: {fileID: 0}
     - target: {fileID: 5684716531877076424, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.35057
       objectReference: {fileID: 0}
     - target: {fileID: 5684716531877076424, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -119,10 +111,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
---- !u!4 &8318671082257427989 stripped
+--- !u!4 &5476749925256578016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5684716531877076424, guid: 662f61293d770d2479f575170d09ee9b, type: 3}
-  m_PrefabInstance: {fileID: 4437717816033309661}
+  m_PrefabInstance: {fileID: 208705565424229928}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6799206075590231648
 PrefabInstance:

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 [Serializable]
 public abstract class TriggerEffect
@@ -7,5 +8,5 @@ public abstract class TriggerEffect
     /// <summary>
     /// onTriggerEffect is an abstract function that is customized and overwritten by each triggereffect
     /// </summary>
-    public abstract void onTriggerEffect();
+    public abstract IEnumerator onTriggerEffect();
 }

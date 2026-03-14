@@ -18,10 +18,8 @@ public class PlayerHandHandler : MonoBehaviour
     List<Vector3> currentRaiseOffsets;
     Coroutine raiseCoroutine;
 
-    [Header("Camera Follow")]
+    [Header("Camera Reference")]
     [SerializeField] Transform cameraReference;
-    [SerializeField] float maxDownPitch = 45f;
-    [SerializeField] float maxUpPitch = 45f;
 
     [Header("Arm Bob")]
     [SerializeField] bool bobEnabled = true;
@@ -62,30 +60,29 @@ public class PlayerHandHandler : MonoBehaviour
 
     void Update()
     {
+        if (playerHands == null || playerHands.Count == 0) return;
+
         var mouse = Mouse.current;
-        if (mouse == null || playerHands == null || playerHands.Count == 0) return;
-
-        var scroll = mouse.scroll.ReadValue().y;
-        if (Mathf.Approximately(scroll, 0f)) return;
-
-        if (scroll > 0f)
+        if (mouse != null)
         {
-            // Scroll up -> previous hand
-            playerHandID = (playerHandID - 1 + playerHands.Count) % playerHands.Count;
-        }
-        else if (scroll < 0f)
-        {
-            // Scroll down -> next hand
-            playerHandID = (playerHandID + 1) % playerHands.Count;
+            var scroll = mouse.scroll.ReadValue().y;
+            if (!Mathf.Approximately(scroll, 0f))
+            {
+                if (scroll > 0f)
+                {
+                    // Scroll up -> previous hand
+                    playerHandID = (playerHandID - 1 + playerHands.Count) % playerHands.Count;
+                }
+                else
+                {
+                    // Scroll down -> next hand
+                    playerHandID = (playerHandID + 1) % playerHands.Count;
+                }
+
+                UpdateHands();
+            }
         }
 
-        UpdateHands();
-
-        // Apply camera-follow rotation to active hand each frame so head-bob remains visible
-        if (cameraReference != null)
-        {
-            ApplyCameraFollowToActiveHand();
-        }
     }
 
     void UpdateHands()
@@ -129,27 +126,6 @@ public class PlayerHandHandler : MonoBehaviour
                 if (go.activeSelf) go.SetActive(false);
             }
         }
-    }
-
-    void ApplyCameraFollowToActiveHand()
-    {
-        if (cameraReference == null || playerHands == null || playerHands.Count == 0) return;
-        int i = playerHandID;
-        if (i < 0 || i >= playerHands.Count) return;
-        var go = playerHands[i];
-        if (go == null) return;
-        if (originalLocalRotations == null || i >= originalLocalRotations.Count) return;
-
-        // Get signed pitch from camera's localEulerAngles.x
-        float pitch = cameraReference.localEulerAngles.x;
-        if (pitch > 180f) pitch -= 360f;
-
-        // Clamp pitch to avoid showing unmodeled wrist when looking down
-        float clamped = Mathf.Clamp(pitch, -maxUpPitch, maxDownPitch);
-
-        Quaternion baseRot = originalLocalRotations[i];
-        Quaternion target = baseRot * Quaternion.Euler(clamped, 0f, 0f);
-        go.transform.localRotation = target;
     }
 
     IEnumerator RaiseRoutine(int index, Vector3 fromOffset, Vector3 toOffset, float duration)
@@ -206,7 +182,12 @@ public class PlayerHandHandler : MonoBehaviour
             ? originalLocalPositions[i]
             : go.transform.localPosition;
 
-        go.transform.localPosition = basePos + new Vector3(x, y, 0f);
+        // Apply raise offset for smooth hand switching animation
+        Vector3 raiseOffsetVec = (currentRaiseOffsets != null && i < currentRaiseOffsets.Count)
+            ? currentRaiseOffsets[i]
+            : Vector3.zero;
+
+        go.transform.localPosition = basePos + raiseOffsetVec + new Vector3(x, y, 0f);
     }
 
     public void SetPlayerHand(int id)

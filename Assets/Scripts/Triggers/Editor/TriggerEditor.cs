@@ -14,25 +14,37 @@ public class TriggerEditor : Editor
         }
         
         var dynamicTrigger = target as DynamicTrigger;
-
         EditorGUILayout.LabelField("Trigger Effects", EditorStyles.boldLabel);
 
-        //add more as more trigger effects are made
         var effectLabels = new string[]
         {
             "Enable/Disable Objects",
-            "Play Sound"
+            "Play Sound",
+            "Enable/Disable Player Control",
+            "Look at an Object",
+            "Wait for set time",
+            "Apply Camera Shake"
         };
 
-        //also be sure to add more here
-        var effectActions = new Action[]
+        Action[] effectActions;
+        if (dynamicTrigger != null)
         {
-            () => dynamicTrigger.addEffect(new DisableObjectEffect()),
-            () => dynamicTrigger.addEffect(new PlayNoiseEffect())
-        };
+            effectActions = new Action[]
+            {
+                () => dynamicTrigger.addEffect(new DisableObjectEffect()),
+                () => dynamicTrigger.addEffect(new PlayNoiseEffect()),
+                () => dynamicTrigger.addEffect(new RemovePlayerMovementEffect()),
+                () => dynamicTrigger.addEffect(new LookAtEffect()),
+                () => dynamicTrigger.addEffect(new WaitEffect()),
+                () => dynamicTrigger.addEffect(new ShakeCameraEffect())
+            };
+        }
+        else
+        {
+            effectActions = new Action[effectLabels.Length]; // Empty actions
+        }
 
         DrawTripleButtons(effectLabels, effectActions);
-
         base.OnInspectorGUI();
     }
     private void DrawTripleButtons(string[] labels, Action[] actions)
