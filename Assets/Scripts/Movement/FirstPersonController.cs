@@ -23,6 +23,7 @@ public class FirstPersonController : MonoBehaviour
 
     private Vector3 velocity;
     private bool isSprinting;
+    private bool jumpEnabled = true;
 
     [Header("Camera")]
     public Transform cameraTransform;
@@ -75,13 +76,16 @@ public class FirstPersonController : MonoBehaviour
         cameraPitch = Mathf.Clamp(pitch, -90f, 90f);
 
         cameraTransform.localEulerAngles = new Vector3(cameraPitch, 0f, 0f);
-
-        
+       
     }
     private bool lookEnabled = true;
     public void SetLookEnabled(bool enabled)
     {
         lookEnabled = enabled;
+    }
+    public void SetJumpEnabled(bool enabled)
+    {
+        jumpEnabled = enabled;
     }
     public void toggleGravity(bool on)
     {
@@ -160,6 +164,8 @@ public class FirstPersonController : MonoBehaviour
     }
     private void Jump()
     {
+        if (!jumpEnabled) return;
+
         if (controller.isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }

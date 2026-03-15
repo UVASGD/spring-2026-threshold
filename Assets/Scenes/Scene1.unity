@@ -2774,6 +2774,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: YarnBall
       objectReference: {fileID: 0}
+    - target: {fileID: 2820346734682351221, guid: 325e8abdab597614d8f077966bd42a6e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3199863357114744015, guid: 325e8abdab597614d8f077966bd42a6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -190.91446

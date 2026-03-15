@@ -52,21 +52,55 @@ PrefabInstance:
       propertyPath: m_Name
       value: WickerBasketTall
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e62e0bef8db9e464abf9555e2ed1632a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e62e0bef8db9e464abf9555e2ed1632a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4334067006349440389}
+      addedObject: {fileID: 5276859802019054877}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e62e0bef8db9e464abf9555e2ed1632a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5882868515324379658}
   m_SourcePrefab: {fileID: 100100000, guid: e62e0bef8db9e464abf9555e2ed1632a, type: 3}
 --- !u!1 &3879257132668006188 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e62e0bef8db9e464abf9555e2ed1632a, type: 3}
   m_PrefabInstance: {fileID: 4113064225396396669}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &4334067006349440389
-MeshCollider:
+--- !u!54 &5276859802019054877
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879257132668006188}
+  serializedVersion: 5
+  m_Mass: 0.5
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &5882868515324379658
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -83,7 +117,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1366723558834081334, guid: e62e0bef8db9e464abf9555e2ed1632a, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.63291335, y: 0.49999994, z: 0.07946019}
+  m_Center: {x: 0, y: -7.515955e-17, z: 0.013101386}

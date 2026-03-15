@@ -5157,6 +5157,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9144820386857769907}
+  - {fileID: 8976570338955505473}
   m_Father: {fileID: 5684716531877076424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &208457415299899274
@@ -6063,8 +6064,6 @@ MonoBehaviour:
   raiseOffset: 0.3
   raiseDuration: 0.2
   cameraReference: {fileID: 8979194784093021062}
-  maxDownPitch: 45
-  maxUpPitch: 45
   bobEnabled: 1
   bobAmplitude: 0.01
   bobFrequency: 5
@@ -6326,6 +6325,37 @@ Transform:
   m_Children:
   - {fileID: 4016879559712921940}
   m_Father: {fileID: 7319818975686324590}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4706523584838846122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8976570338955505473}
+  m_Layer: 0
+  m_Name: GrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8976570338955505473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706523584838846122}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8979194784093021062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5005253432424356083
 GameObject:
@@ -6854,6 +6884,7 @@ GameObject:
   - component: {fileID: 1799329054352702584}
   - component: {fileID: 7960513538314767790}
   - component: {fileID: 3194462696095937451}
+  - component: {fileID: 3103844871248469167}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7135,6 +7166,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3103844871248469167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766625369763935388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865947e4820d54b4fad877a7b9fa0fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhysicsGrabber
+  holdPoint: {fileID: 8976570338955505473}
+  grabbableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  grabRange: 5
+  attractionSpeed: 15
+  maxHoldDistance: 2.5
 --- !u!1 &6786042463102049566
 GameObject:
   m_ObjectHideFlags: 0
