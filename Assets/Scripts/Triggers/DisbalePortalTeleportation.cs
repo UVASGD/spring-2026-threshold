@@ -4,7 +4,7 @@ using UnityEngine;
 public class DisbalePortalTeleportation : MonoBehaviour
 {
     //trigger disables the teleportation component of a portal, preventing reentry.
-    [SerializeField] List<PortalTeleporter> teleporters;
+    [SerializeField] List<Portal> teleporters;
     [SerializeField] bool destroySelf;
 
     void OnTriggerEnter(Collider other)
@@ -12,7 +12,10 @@ public class DisbalePortalTeleportation : MonoBehaviour
         Debug.Log("Portal teleportation disabling trigger hit");
         foreach(var portal in teleporters)
         {
-            portal.enabled = false; //disable that script while keeping the visual functionality of the portal
+            if (portal != null)
+            {
+                portal.TeleportEnabled = false; //disable teleport only while keeping the visual functionality of the portal
+            }
         }
 
         if (destroySelf)

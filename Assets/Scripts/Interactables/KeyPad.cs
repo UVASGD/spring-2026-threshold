@@ -7,6 +7,7 @@ public class KeyPad : MonoBehaviour
 {
     [SerializeField] TMP_Text outputText;
     [SerializeField] private int consoleID;
+    [SerializeField] Action<int> onCompletion;
     char[] digitValues = {'-','-','-','-'}; 
     [SerializeField] List<char> correctChars;
     void Awake()

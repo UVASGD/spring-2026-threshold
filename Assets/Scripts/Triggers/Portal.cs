@@ -1,15 +1,37 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField] Portal linkedPortal;
+    [Header("Link")]
+    [SerializeField] private Portal linkedPortal;
+
+    [Header("Teleport")]
+    [SerializeField] private bool teleportEnabled = true;
+    private Transform player;
+    [SerializeField] private bool playerIsOverlapping = false;
+    private bool isJustArrived = false;
+
+    [Header("Teleport Exit")]
+    [SerializeField] private bool exitOnLinkedForwardSide = true;
+    [SerializeField, Min(0f)] private float exitPlaneOffset = 0.05f;
+
+    [Header("Object Teleport")]
+    [SerializeField] private string grabbableObjectsLayerName = "grabbableObjects";
+    private int grabbableObjectsLayer = -1;
+
+    private readonly HashSet<Rigidbody> overlappingTeleportBodies = new HashSet<Rigidbody>();
+    private readonly HashSet<Rigidbody> justArrivedTeleportBodies = new HashSet<Rigidbody>();
+    private readonly List<Rigidbody> teleportBodyBuffer = new List<Rigidbody>();
+    private readonly List<Rigidbody> staleBodyBuffer = new List<Rigidbody>();
+
     [Header("Portal Frame Layer")]
-    [SerializeField] string cullingLayerName = "PortalFrame";
+    [SerializeField] private string cullingLayerName = "PortalFrame";
     
     [Header("Clip Plane Offset")]
-    [SerializeField] float clipPlaneOffset = -0.01f;
+    [SerializeField] private float clipPlaneOffset = -0.01f;
     private Shader portalShader;
 
     // Internal References
@@ -20,11 +42,35 @@ public class Portal : MonoBehaviour
     // Crossing detection to avoid one-frame wrong-side render
     private float prevCameraDot = 0f;
     private bool prevCameraDotInitialized = false;
-    // When crossing occurs, skip a few frames to avoid flicker when rotating
-    private int skipPortalRenderFrames = 0;
+
+    [Header("Render Stability")]
+    [SerializeField, Min(1)] private int renderCooldownFrames = 3;
+    private int renderCooldownUntilFrame = -1;
+
+    public bool TeleportEnabled
+    {
+        get => teleportEnabled;
+        set
+        {
+            teleportEnabled = value;
+            if (!teleportEnabled)
+            {
+                playerIsOverlapping = false;
+                isJustArrived = false;
+            }
+        }
+    }
 
     private void Start()
     {
+        grabbableObjectsLayer = LayerMask.NameToLayer(grabbableObjectsLayerName);
+        if (grabbableObjectsLayer == -1)
+        {
+            Debug.LogWarning($"Portal {name}: Layer '{grabbableObjectsLayerName}' was not found. Grabbable object teleport is disabled.", this);
+        }
+
+        TryResolvePlayer();
+
         //grab renderer
         screenMesh = GetComponentInChildren<Renderer>();
         if (screenMesh == null)
@@ -53,6 +99,63 @@ public class Portal : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        TryResolvePlayer();
+
+        if (!teleportEnabled || linkedPortal == null || player == null) return;
+        if (!playerIsOverlapping || isJustArrived) return;
+
+        Vector3 portalToPlayer = player.position - transform.position;
+        float dotProduct = Vector3.Dot(transform.forward, portalToPlayer);
+
+        // This setup teleports when the player crosses the front-facing plane.
+        if (dotProduct > 0f)
+        {
+            Teleport();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!teleportEnabled || linkedPortal == null) return;
+        if (overlappingTeleportBodies.Count == 0) return;
+
+        teleportBodyBuffer.Clear();
+        staleBodyBuffer.Clear();
+
+        foreach (Rigidbody body in overlappingTeleportBodies)
+        {
+            if (body == null)
+            {
+                staleBodyBuffer.Add(body);
+                continue;
+            }
+
+            if (justArrivedTeleportBodies.Contains(body))
+            {
+                continue;
+            }
+
+            float dotProduct = Vector3.Dot(transform.forward, body.worldCenterOfMass - transform.position);
+            if (dotProduct > 0f)
+            {
+                teleportBodyBuffer.Add(body);
+            }
+        }
+
+        foreach (Rigidbody staleBody in staleBodyBuffer)
+        {
+            overlappingTeleportBodies.Remove(staleBody);
+            justArrivedTeleportBodies.Remove(staleBody);
+        }
+
+        foreach (Rigidbody body in teleportBodyBuffer)
+        {
+            TeleportRigidbody(body);
+        }
+    }
+
     private void CreatePortalCamera()
     {
         GameObject camObj = new GameObject($"{gameObject.name}_Cam");
@@ -78,6 +181,23 @@ public class Portal : MonoBehaviour
         }
     }
 
+    private void TryResolvePlayer()
+    {
+        if (player != null) return;
+
+        if (FirstPersonController.i != null)
+        {
+            player = FirstPersonController.i.transform;
+            return;
+        }
+
+        GameObject taggedPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (taggedPlayer != null)
+        {
+            player = taggedPlayer.transform;
+        }
+    }
+
     private void OnEnable()
     {
         RenderPipelineManager.endCameraRendering += OnBeginCameraRendering;
@@ -86,6 +206,11 @@ public class Portal : MonoBehaviour
     private void OnDisable()
     {
         RenderPipelineManager.endCameraRendering -= OnBeginCameraRendering;
+
+        overlappingTeleportBodies.Clear();
+        justArrivedTeleportBodies.Clear();
+        teleportBodyBuffer.Clear();
+        staleBodyBuffer.Clear();
         
         //free up memeory to prevent a memory leak
         if (viewTexture != null) viewTexture.Release();
@@ -95,36 +220,53 @@ public class Portal : MonoBehaviour
 
     void OnBeginCameraRendering(ScriptableRenderContext context, Camera camera)
     {
-        // If we're currently skipping frames (cooldown), decrement and skip.
-        if (skipPortalRenderFrames > 0)
+        if (linkedPortal == null) return;
+        if (camera.cameraType == CameraType.Preview || camera.targetTexture != null) return;
+
+        // Cooldown is tracked per rendered frame (not per camera callback),
+        // so Scene/Game cameras cannot consume it faster than intended.
+        if (Time.frameCount > renderCooldownUntilFrame && screenMesh != null && !screenMesh.enabled)
         {
-            skipPortalRenderFrames--;
-            if (skipPortalRenderFrames == 0 && screenMesh != null) screenMesh.enabled = true;
+            screenMesh.enabled = true;
+        }
+
+        if (Time.frameCount <= renderCooldownUntilFrame)
+        {
+            if (camera == Camera.main)
+            {
+                SyncCameraCrossingDot(camera);
+            }
             return;
         }
 
-        if (linkedPortal == null || !screenMesh.isVisible) return;
-        if (camera.cameraType == CameraType.Preview || camera.targetTexture != null) return;
-
-        // Only perform crossing-detection for the main/player camera.
+        // Run crossing detection before visibility checks so backwards crossings are not missed.
         if (camera == Camera.main)
         {
             float camDot = Vector3.Dot(transform.forward, camera.transform.position - transform.position);
-            if (!prevCameraDotInitialized) prevCameraDot = camDot;
+            if (!prevCameraDotInitialized)
+            {
+                prevCameraDot = camDot;
+                prevCameraDotInitialized = true;
+            }
+
+            const float crossingEpsilon = 0.0001f;
+            bool crossedPortalPlane =
+                (camDot > crossingEpsilon && prevCameraDot < -crossingEpsilon) ||
+                (camDot < -crossingEpsilon && prevCameraDot > crossingEpsilon);
 
             // If sign flips between frames, the camera just crossed the portal plane.
             // Skip rendering the portal for this frame to avoid showing the wrong side.
-            if (camDot * prevCameraDot < 0f)
+            if (crossedPortalPlane)
             {
                 prevCameraDot = camDot;
-                // Start a small cooldown to avoid flicker from rotation/visibility toggles
-                skipPortalRenderFrames = 3;
-                if (screenMesh != null) screenMesh.enabled = false;
+                BeginRenderCooldown();
                 return;
             }
 
             prevCameraDot = camDot;
         }
+
+        if (screenMesh == null || !screenMesh.isVisible) return;
 
         UpdateCamera(camera);
 
@@ -132,6 +274,165 @@ public class Portal : MonoBehaviour
         #pragma warning disable 0618 
         UniversalRenderPipeline.RenderSingleCamera(context, portalCam);
         #pragma warning restore 0618
+    }
+
+    private void BeginRenderCooldown()
+    {
+        int frames = Mathf.Max(1, renderCooldownFrames);
+        int cooldownEndFrame = Time.frameCount + frames - 1;
+        if (cooldownEndFrame > renderCooldownUntilFrame)
+        {
+            renderCooldownUntilFrame = cooldownEndFrame;
+        }
+
+        if (screenMesh != null)
+        {
+            screenMesh.enabled = false;
+        }
+    }
+
+    private void SyncCameraCrossingDot(Camera cam)
+    {
+        if (cam == null) return;
+
+        prevCameraDot = Vector3.Dot(transform.forward, cam.transform.position - transform.position);
+        prevCameraDotInitialized = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerIsOverlapping = true;
+            return;
+        }
+
+        Rigidbody body = other.attachedRigidbody;
+        int otherLayer = body != null ? body.gameObject.layer : other.gameObject.layer;
+        if (grabbableObjectsLayer == -1 || otherLayer != grabbableObjectsLayer) return;
+
+        if (body != null)
+        {
+            overlappingTeleportBodies.Add(body);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerIsOverlapping = false;
+            isJustArrived = false;
+            return;
+        }
+
+        Rigidbody body = other.attachedRigidbody;
+        if (body != null)
+        {
+            overlappingTeleportBodies.Remove(body);
+            justArrivedTeleportBodies.Remove(body);
+        }
+    }
+
+    private void OnPlayerArrived()
+    {
+        isJustArrived = true;
+        playerIsOverlapping = true;
+    }
+
+    private void OnRigidbodyArrived(Rigidbody body)
+    {
+        if (body == null) return;
+
+        overlappingTeleportBodies.Add(body);
+        justArrivedTeleportBodies.Add(body);
+    }
+
+    private void Teleport()
+    {
+        linkedPortal.OnPlayerArrived();
+
+        // Force both portal surfaces into cooldown during teleport to prevent
+        // a stale texture flash on the crossing frame.
+        BeginRenderCooldown();
+        linkedPortal.BeginRenderCooldown();
+
+        Vector3 localPos = transform.InverseTransformPoint(player.position);
+        localPos = Quaternion.Euler(0f, 180f, 0f) * localPos;
+
+        // Keep x/y alignment but force a predictable side of the destination plane.
+        float minExitDepth = Mathf.Max(exitPlaneOffset, Mathf.Abs(localPos.z));
+        localPos.z = exitOnLinkedForwardSide ? minExitDepth : -minExitDepth;
+
+        Vector3 targetPosition = linkedPortal.transform.TransformPoint(localPos);
+
+        Quaternion relativeRot = Quaternion.Inverse(transform.rotation) * player.rotation;
+        relativeRot = Quaternion.Euler(0f, 180f, 0f) * relativeRot;
+        Quaternion targetRotation = linkedPortal.transform.rotation * relativeRot;
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+        if (cc != null)
+        {
+            cc.enabled = false;
+            player.SetPositionAndRotation(targetPosition, targetRotation);
+            cc.enabled = true;
+        }
+        else
+        {
+            player.SetPositionAndRotation(targetPosition, targetRotation);
+        }
+
+        // Keep grabbed objects attached through portal traversal by teleporting
+        // the held rigidbody immediately with the player.
+        PhysicsGrabber grabber = player.GetComponentInChildren<PhysicsGrabber>();
+        if (grabber != null && grabber.HeldObject != null)
+        {
+            TeleportRigidbody(grabber.HeldObject);
+        }
+
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+        {
+            SyncCameraCrossingDot(mainCam);
+            linkedPortal.SyncCameraCrossingDot(mainCam);
+        }
+
+        playerIsOverlapping = false;
+    }
+
+    private void TeleportRigidbody(Rigidbody body)
+    {
+        if (body == null || linkedPortal == null) return;
+
+        linkedPortal.OnRigidbodyArrived(body);
+
+        Vector3 localPos = transform.InverseTransformPoint(body.position);
+        localPos = Quaternion.Euler(0f, 180f, 0f) * localPos;
+
+        float minExitDepth = Mathf.Max(exitPlaneOffset, Mathf.Abs(localPos.z));
+        localPos.z = exitOnLinkedForwardSide ? minExitDepth : -minExitDepth;
+
+        Vector3 targetPosition = linkedPortal.transform.TransformPoint(localPos);
+
+        Quaternion relativeRot = Quaternion.Inverse(transform.rotation) * body.rotation;
+        relativeRot = Quaternion.Euler(0f, 180f, 0f) * relativeRot;
+        Quaternion targetRotation = linkedPortal.transform.rotation * relativeRot;
+
+        Vector3 localVelocity = transform.InverseTransformDirection(body.linearVelocity);
+        localVelocity = Quaternion.Euler(0f, 180f, 0f) * localVelocity;
+        Vector3 targetVelocity = linkedPortal.transform.TransformDirection(localVelocity);
+
+        Vector3 localAngularVelocity = transform.InverseTransformDirection(body.angularVelocity);
+        localAngularVelocity = Quaternion.Euler(0f, 180f, 0f) * localAngularVelocity;
+        Vector3 targetAngularVelocity = linkedPortal.transform.TransformDirection(localAngularVelocity);
+
+        body.position = targetPosition;
+        body.rotation = targetRotation;
+        body.linearVelocity = targetVelocity;
+        body.angularVelocity = targetAngularVelocity;
+        body.WakeUp();
+
+        overlappingTeleportBodies.Remove(body);
     }
 
     void UpdateCamera(Camera playerCam) //AI generated function since I don't know matrix multiplications or quaternions quite yet

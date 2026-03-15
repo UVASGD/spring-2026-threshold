@@ -20,6 +20,8 @@ public class PhysicsGrabber : MonoBehaviour
     private bool jumpLockedByGrab;
     private Collider[] playerColliders;
 
+    public Rigidbody HeldObject => heldObject;
+
     void OnEnable()
     {
         playerCamera = FirstPersonController.i.cameraTransform.GetComponent<Camera>();

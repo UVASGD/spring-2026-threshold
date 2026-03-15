@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4068182481036791197}
   - component: {fileID: 4722103345059674883}
   - component: {fileID: 3787045781084268508}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5587,7 +5587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2572692792532433675}
   - component: {fileID: 5165070601220035037}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Plane005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7195,7 +7195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7579257023179000614}
   - component: {fileID: 951631940751647216}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Plane005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7731,7 +7731,7 @@ GameObject:
   - component: {fileID: 6310595767336612842}
   - component: {fileID: 5188290691361361715}
   - component: {fileID: 7511404898523578875}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8031,7 +8031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2820346734682351221, guid: 325e8abdab597614d8f077966bd42a6e, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2820346734682351221, guid: 325e8abdab597614d8f077966bd42a6e, type: 3}
       propertyPath: m_IsActive
