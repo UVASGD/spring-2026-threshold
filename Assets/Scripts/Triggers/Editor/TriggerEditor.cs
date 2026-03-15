@@ -27,7 +27,8 @@ public class TriggerEditor : Editor
             "Display text onscreen",
             "Fade screen in/out",
             "Teleport Player",
-            "Close a door"
+            "Close a door",
+            "Lerp Objects"
         };
 
         Action[] effectActions;
@@ -44,7 +45,8 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new DisplayMessageEffect()),
                 () => dynamicTrigger.addEffect(new FadeOutEffect()),
                 () => dynamicTrigger.addEffect(new TeleportPlayerEffect()),
-                () => dynamicTrigger.addEffect(new CloseDoorEffect())
+                () => dynamicTrigger.addEffect(new CloseDoorEffect()),
+                () => dynamicTrigger.addEffect(new LerpObjectEffect())
             };
         }
         else

@@ -8,81 +8,109 @@ public class KeyPad : MonoBehaviour
     [SerializeField] TMP_Text outputText;
     [SerializeField] private int consoleID;
     [SerializeField] Action<int> onCompletion;
-    char[] digitValues = {'-','-','-','-'}; 
+    char[] digitValues = {'-','-','-','-'};
     [SerializeField] List<char> correctChars;
+    private int currentDigitIndex;
+
+    private bool lockState = false; //once answered correctly, enter a lock state
+
     void Awake()
     {
         KeyCap.onKeycapPress += handleKeycapPress;
+        resetInput();
+    }
+
+    private void OnDestroy()
+    {
+        KeyCap.onKeycapPress -= handleKeycapPress;
     }
 
     private void handleKeycapPress(int keypadID, int keyValue)
     {
-        if(keypadID == this.consoleID)
-        {
-           for(int i = 0; i < digitValues.Length; i++)
-            {
-                if(digitValues[i] == '-')
-                {
-                    //modify the value of the current '-' mark to the keyPad value
-                    digitValues[i] = (char)('0' + keyValue);
+        if(lockState == true) return; //ignore if in lock state
 
-                    updateKeypadText();
-                    
-                    if (i == digitValues.Length - 1) //the final digit has been input
-                    {
-                        //complete the input of the code
-                        if (codeInputCheck())
-                        {
-                            
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                
-                updateKeypadText();
-            }
+        if(keypadID != this.consoleID)
+        {
+            return;
         }
+
+        if (currentDigitIndex >= digitValues.Length)
+        {
+            resetInput();
+        }
+
+        digitValues[currentDigitIndex] = convertKeyValueToChar(keyValue);
+        currentDigitIndex++;
+        updateKeypadText();
+
+        if (currentDigitIndex < digitValues.Length)
+        {
+            return;
+        }
+
+        if (codeInputCheck())
+        {
+            Debug.Log("Keypad inputted correctly");
+            onCompletion?.Invoke(consoleID);
+            lockState = true;
+
+            return;
+        }
+
+        Debug.Log("Keypad inputted incorrectly");
+        resetInput();
     }
+
+    private char convertKeyValueToChar(int keyValue)
+    {
+        if (keyValue >= 0 && keyValue <= 9)
+        {
+            return (char)('0' + keyValue);
+        }
+
+        return keyValue.ToString()[0];
+    }
+
     public void updateKeypadText()
     {
-        outputText.text = "";
-        for(int i = 0; i < 4; i++)
+        if(outputText == null)
         {
-            if(i<digitValues.Length - 1)
-            {
-                outputText.text += digitValues[i];
-            }
-            else
-            {
-                outputText.text += '-';
-            }
+            return;
         }
+
+        outputText.text = new string(digitValues);
     }
+
     public bool codeInputCheck()
     {
-        //check if the four inputted characters are correct
-        for(int i = 0; i < correctChars.Count; i++)
+        if(correctChars == null || correctChars.Count != digitValues.Length)
         {
-            if(correctChars[i] == digitValues[i])
+            Debug.LogWarning($"KeyPad {consoleID} has invalid correctChars setup. Expected {digitValues.Length} chars.");
+            return false;
+        }
+
+        for(int i = 0; i < digitValues.Length; i++)
+        {
+            if(correctChars[i] != outputText.text.ToCharArray()[i])
             {
-                continue;
-            }
-            else
-            {
-                //code check failed
                 Debug.Log("Keypad inputted incorrectly");
-                for(int j = 0; j < 3; j++) //reset screen characters
-                {
-                    digitValues[j] = '-';
-                }
-                updateKeypadText();
                 return false;
             }
         }
+
         Debug.Log("Keypad inputted correctly");
         return true;
+    }
+
+    private void resetInput()
+    {
+        if(lockState) return;
+        for(int i = 0; i < digitValues.Length; i++)
+        {
+            digitValues[i] = '-';
+        }
+
+        currentDigitIndex = 0;
+        updateKeypadText();
     }
 }

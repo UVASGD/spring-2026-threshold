@@ -12,14 +12,23 @@ public class DynamicTrigger : MonoBehaviour
     {
         foreach (var effect in triggerEffects)
         {
-            yield return effect.onTriggerEffect();
+            if (effect.Asynchronous)
+            {
+                //start as another coroutine
+                StartCoroutine(effect.onTriggerEffect());
+            }
+            else
+            {
+                yield return effect.onTriggerEffect();
+            }
         }
 
-        this.gameObject.SetActive(retrigger); //set to inactive if retrigger is false
+        gameObject.SetActive(retrigger); //set to inactive if retrigger is false
     }
     public void addEffect(TriggerEffect effect)
     {
-        triggerEffects.Add(effect);
+        if(effect != null)
+            triggerEffects.Add(effect);
     }
     void OnTriggerEnter(Collider other)
     {
