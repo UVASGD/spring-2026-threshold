@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class KeyPad : MonoBehaviour
 {
     [SerializeField] TMP_Text outputText;
     [SerializeField] private int consoleID;
-    [SerializeField] Action<int> onCompletion;
+    [SerializeField] UnityEvent onCompletion;
     char[] digitValues = {'-','-','-','-'};
     [SerializeField] List<char> correctChars;
     private int currentDigitIndex;
@@ -51,7 +52,7 @@ public class KeyPad : MonoBehaviour
         if (codeInputCheck())
         {
             Debug.Log("Keypad inputted correctly");
-            onCompletion?.Invoke(consoleID);
+            onCompletion?.Invoke();
             lockState = true;
 
             return;

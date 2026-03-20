@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
 public class DynamicTrigger : MonoBehaviour
 {
     [SerializeField] bool retrigger; //if false, disable the trigger after it is triggered once
@@ -37,5 +36,10 @@ public class DynamicTrigger : MonoBehaviour
             Debug.Log("Generic trigger entered");
             StartCoroutine(runEffects());
         }
+    }
+
+    public void externalTriggerActivated()
+    {
+        OnTriggerEnter(FirstPersonController.i.gameObject.GetComponent<Collider>()); //get the player's collider and use it for the trigger (bad hardcode hack)
     }
 }

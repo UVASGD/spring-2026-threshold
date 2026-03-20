@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PhysicsGrabber : MonoBehaviour
 {
+    public static PhysicsGrabber i;
     //this script handles functionality with player grabbing physics objects
     public Transform holdPoint;
     private Camera playerCamera;
@@ -21,6 +22,11 @@ public class PhysicsGrabber : MonoBehaviour
     private Collider[] playerColliders;
 
     public Rigidbody HeldObject => heldObject;
+
+    void Awake()
+    {
+        if(i==null) i = this;
+    }
 
     void OnEnable()
     {
@@ -99,7 +105,10 @@ public class PhysicsGrabber : MonoBehaviour
         //move the object towards the hold point
         heldObject.linearVelocity = (directionToPoint * attractionSpeed) / heldObject.mass; //inertia slows down this velocity
     }
-
+    public void externalDrop()
+    {
+        Drop();
+    }
     private void Drop()
     {
         if(heldObject == null) return; //null check for held object

@@ -28,6 +28,7 @@ public class TriggerEditor : Editor
             "Fade screen in/out",
             "Teleport Player",
             "Close a door",
+            "Drop Current Physics Object",
             "Lerp Objects"
         };
 
@@ -46,6 +47,7 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new FadeOutEffect()),
                 () => dynamicTrigger.addEffect(new TeleportPlayerEffect()),
                 () => dynamicTrigger.addEffect(new CloseDoorEffect()),
+                () => dynamicTrigger.addEffect(new DropPhysicsEffect()),
                 () => dynamicTrigger.addEffect(new LerpObjectEffect())
             };
         }
