@@ -26,7 +26,7 @@ public class Fader : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             lerpPercentage = elapsedTime / lerpTime;
-            lerpImage.color = new Color(0,0,0, lerpPercentage);
+            lerpImage.color = new Color(lerpImage.color.r, lerpImage.color.g, lerpImage.color.b, lerpPercentage);
 
             yield return null;
         }
@@ -43,11 +43,19 @@ public class Fader : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             lerpPercentage = elapsedTime / lerpTime;
-            lerpImage.color = new Color(0,0,0, 1 - lerpPercentage); //the 1 - lerpPercentage causes the alpha to decrease (alpha is a percentage / 1)
+            lerpImage.color = new Color(lerpImage.color.r, lerpImage.color.g, lerpImage.color.b, 1 - lerpPercentage);
 
             yield return null;
         }
 
         yield return null;
+    }
+    public void updateFaderColor(Color newColor)
+    {
+        lerpImage.color = newColor;
+    }
+    public void resetFaderColor()
+    {
+        lerpImage.color = Color.black;
     }
 }

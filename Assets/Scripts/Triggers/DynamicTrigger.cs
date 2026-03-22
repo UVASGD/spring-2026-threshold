@@ -6,7 +6,7 @@ public class DynamicTrigger : MonoBehaviour
 {
     [SerializeField] bool retrigger; //if false, disable the trigger after it is triggered once
     [SerializeReference]
-    [SerializeField] List<TriggerEffect> triggerEffects;
+    [SerializeField] List<TriggerEffect> triggerEffects = new List<TriggerEffect>();
     public IEnumerator runEffects()
     {
         foreach (var effect in triggerEffects)
