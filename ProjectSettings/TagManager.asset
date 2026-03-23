@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Hurtbox
+  - Censored
   layers:
   - Default
   - TransparentFX

@@ -7,10 +7,11 @@ public class BatteryPickup : MonoBehaviour, IInteract, ISFXGenerator
     [SerializeField] AudioClip pickupClip;
     public void OnPlayerInteract()
     {
+        if(Flashlight.i == null) return;
         Debug.Log("Player flashlight battery topped off");
-        Flashlight.i.TopOffBattery();
+        Flashlight.i?.TopOffBattery();
         PlayLocalSFX(pickupClip);
-        onBatteryPickup.Invoke(); //invoke the batterypickup event
+        onBatteryPickup?.Invoke(); //invoke the batterypickup event if there are listeners
         
         Destroy(this.gameObject);
     }

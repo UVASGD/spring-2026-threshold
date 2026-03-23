@@ -22,6 +22,9 @@ public class LoadAreaTrigger : MonoBehaviour
 
     public IEnumerator enterTrigger()
     {
+        //set the fader color to black
+        Fader.i.updateFaderColor(Color.black);
+
         //update the text string
         AreaTextPopup.i.updateText(areaText);
 

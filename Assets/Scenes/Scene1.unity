@@ -510,11 +510,13 @@ MonoBehaviour:
       type: {class: RemovePlayerMovementEffect, ns: , asm: Assembly-CSharp}
       data:
         effectName: Remove Player Controls
+        asynchronous: 0
         enable: 0
     - rid: 4990198727966720066
       type: {class: LookAtEffect, ns: , asm: Assembly-CSharp}
       data:
         effectName: Look at the can of food and LIKE IT
+        asynchronous: 0
         lerpDuration: 0.5
         lerpCurve:
           serializedVersion: 2
@@ -545,16 +547,19 @@ MonoBehaviour:
       type: {class: RemovePlayerMovementEffect, ns: , asm: Assembly-CSharp}
       data:
         effectName: Reenable controls
+        asynchronous: 0
         enable: 1
     - rid: 4990198727966720068
       type: {class: WaitEffect, ns: , asm: Assembly-CSharp}
       data:
         effectName: Wait for one second
+        asynchronous: 0
         duration: 1
     - rid: 4990198727966720069
       type: {class: ShakeCameraEffect, ns: , asm: Assembly-CSharp}
       data:
         effectName: Shake camera
+        asynchronous: 0
         duration: 1
         intensity: 0.2
 --- !u!64 &310897744
@@ -3951,7 +3956,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 820056759875369228, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -43.75307
+      value: -39.6
       objectReference: {fileID: 0}
     - target: {fileID: 820056759875369228, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3959,7 +3964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 820056759875369228, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -304.24
+      value: -301.08
       objectReference: {fileID: 0}
     - target: {fileID: 820056759875369228, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3995,7 +4000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7847354932518693938, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: areaText
-      value: Basement Scene
+      value: Demo Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847354932518693938, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
+      propertyPath: teleportPosition.y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
