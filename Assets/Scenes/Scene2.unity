@@ -11279,7 +11279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efcb32ac3cd0ce34ebbc70159ef2cbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaosObject
-  rotationalWeight: 10
+  rotationalWeight: 200
   positionalWeight: 1
 --- !u!1 &956963534
 GameObject:
