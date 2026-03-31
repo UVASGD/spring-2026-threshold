@@ -34,7 +34,9 @@ public class RoomChaos : MonoBehaviour
             }
 
             chaosLevel = totalChaos;
-
+            //update the chaos meter
+            ChaosMeter.i.updateChaosMeter(totalChaos);
+            
             //now compare it to each chaos threhsold.
             for(int i = 0; i < chaosThresholds.Count; i++)
             {
