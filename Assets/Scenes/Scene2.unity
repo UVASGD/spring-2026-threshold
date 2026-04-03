@@ -11279,7 +11279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efcb32ac3cd0ce34ebbc70159ef2cbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaosObject
-  rotationalWeight: 200
+  rotationalWeight: 100
   positionalWeight: 1
 --- !u!1 &956963534
 GameObject:
@@ -14882,6 +14882,63 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1283655106
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.8806443
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.07
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 24.155611
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
+      propertyPath: m_Name
+      value: bathroomcuppoard
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e7759f8bc6505ba43a4d499ecdcac950, type: 3}
 --- !u!4 &1288093791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1653446126549594208, guid: 7e247495d057961409bfe46da0a47ee4, type: 3}
@@ -15515,6 +15572,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1653446126549594208, guid: 7e247495d057961409bfe46da0a47ee4, type: 3}
   m_PrefabInstance: {fileID: 1103616878}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1402864073
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.2777532
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.27765617
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6504058
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.65017885
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993480931671495610, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -46.264008
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569128696531688028, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: noteText
+      value: 'Something''s off.
+
+
+        I accidentally slipped and knocked the
+        TV over. And then... the room starting shifting? I have no idea what''s wrong
+        with this place.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657814221443238144, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
+      propertyPath: m_Name
+      value: InteractableNote (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60407100cb28a694eb02f6205d50ec8b, type: 3}
 --- !u!43 &1405029519
 Mesh:
   m_ObjectHideFlags: 0
@@ -23086,9 +23209,11 @@ SceneRoots:
   - {fileID: 1970531352}
   - {fileID: 569843424}
   - {fileID: 1828904425}
+  - {fileID: 1402864073}
   - {fileID: 1949318626}
   - {fileID: 1770097974}
   - {fileID: 2134384806}
   - {fileID: 431415674}
   - {fileID: 467271371}
   - {fileID: 1875315489}
+  - {fileID: 1283655106}

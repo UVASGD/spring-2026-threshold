@@ -44,6 +44,12 @@ public class FirstPersonController : MonoBehaviour
     public float footstepInterval = 0.5f;   // Time between steps while walking
     public float sprintStepMultiplier = 0.75f; // Faster steps when sprinting
 
+    [Header("Feet Push")]
+    public float footPushForce = 4f;
+    public float maxPushMass = 40f;
+    [Range(0.1f, 1f)] public float footContactHeightRatio = 0.35f;
+    public LayerMask pushableLayers = ~0;
+
     private float footstepTimer = 0f;
 
     void Awake()
@@ -243,6 +249,24 @@ public class FirstPersonController : MonoBehaviour
     {
         //changes the y component of the player, making them appear shorter
         gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, newHeight, gameObject.transform.localScale.z);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rb = hit.collider.attachedRigidbody;
+        if (rb == null || rb.isKinematic) return;
+        if (rb.mass > maxPushMass) return;
+        if (((1 << rb.gameObject.layer) & pushableLayers) == 0) return;
+
+        float contactLocalY = transform.InverseTransformPoint(hit.point).y;
+        float bottomY = controller.center.y - (controller.height * 0.5f);
+        float feetZoneTop = bottomY + (controller.height * footContactHeightRatio);
+        if (contactLocalY > feetZoneTop) return;
+
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0f, hit.moveDirection.z);
+        if (pushDir.sqrMagnitude < 0.0001f) return;
+
+        rb.AddForce(pushDir.normalized * footPushForce, ForceMode.Impulse);
     }
 
     public void RotateVelocity(Quaternion rotation)

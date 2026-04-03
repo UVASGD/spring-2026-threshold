@@ -29,7 +29,8 @@ public class TriggerEditor : Editor
             "Teleport Player",
             "Close a door",
             "Drop Current Physics Object",
-            "Lerp Objects"
+            "Lerp Objects",
+            "Apply Impulse"
         };
 
         Action[] effectActions;
@@ -48,7 +49,8 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new TeleportPlayerEffect()),
                 () => dynamicTrigger.addEffect(new CloseDoorEffect()),
                 () => dynamicTrigger.addEffect(new DropPhysicsEffect()),
-                () => dynamicTrigger.addEffect(new LerpObjectEffect())
+                () => dynamicTrigger.addEffect(new LerpObjectEffect()),
+                () => dynamicTrigger.addEffect(new ApplyForceEffect())
             };
         }
         else
