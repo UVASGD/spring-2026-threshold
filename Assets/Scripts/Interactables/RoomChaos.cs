@@ -40,15 +40,28 @@ public class RoomChaos : MonoBehaviour
             //now compare it to each chaos threhsold.
             for(int i = 0; i < chaosThresholds.Count; i++)
             {
-                if(totalChaos > chaosThresholds[i])
+                if(totalChaos >= chaosThresholds[i])
                 {
-                    if(thresholdEvents.Count > i + 1) //only do so if the thresholdEvents member exists
+                    bool hasEventAtIndex = i < thresholdEvents.Count;
+
+                    if(hasEventAtIndex) //only do so if the thresholdEvents member exists
+                    {
                         thresholdEvents[i]?.Invoke(); //invoke the unity event at that index
+                        Debug.Log("Invoked chaos threshold event");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Chaos threshold hit at index {i}, but no matching threshold event exists.");
+                    }
                     
                     Debug.Log($"Chaos threshold of {chaosThresholds[i]} has been hit.");
                     //then remove the event and threshold
-                    thresholdEvents.Remove(thresholdEvents[i]);
-                    chaosThresholds.Remove(chaosThresholds[i]);
+                    if(hasEventAtIndex)
+                    {
+                        thresholdEvents.RemoveAt(i);
+                    }
+
+                    chaosThresholds.RemoveAt(i);
 
                     i--; //decrement if the event was removed
                 }

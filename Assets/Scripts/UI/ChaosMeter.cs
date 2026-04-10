@@ -34,15 +34,15 @@ public class ChaosMeter : MonoBehaviour
         switch (newValue)
         {
             case < 250f:
-                stateText.text = "Chaos: LOW";
+                stateText.text = "low chaos";
                 updateColors(0);
                 break;
             case < 750f:
-                stateText.text = "Chaos: MEDIUM";
+                stateText.text = "medium chaos";
                 updateColors(1);
                 break;
             default: //otherwise it is higher than 750, and therefore at high level
-                stateText.text = "Chaos: HIGH";
+                stateText.text = "high chaos";
                 updateColors(2);
                 break;
         }

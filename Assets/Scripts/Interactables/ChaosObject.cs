@@ -36,10 +36,6 @@ public class ChaosObject : MonoBehaviour
         //return each one multiplied by its respective weight.
         //Rotation is multiplied by 0.05f for tuning.
         chaosContribution = (distanceMoved * positionalWeight) + (amountRotated * 0.05f * rotationalWeight);
-        if(chaosContribution > 50)
-        {
-            Debug.Log($"Chaos contribution of {chaosContribution}");
-        }
     }
 
     public bool isAwake()

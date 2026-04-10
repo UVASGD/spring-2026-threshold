@@ -5915,6 +5915,111 @@ Transform:
   - {fileID: 7082816978553913216}
   m_Father: {fileID: 16125942331389976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2545228594720927190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7702536125215543682}
+  - component: {fileID: 6449929237157920410}
+  m_Layer: 0
+  m_Name: DeathCutscene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7702536125215543682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545228594720927190}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6136165290010493905}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6449929237157920410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545228594720927190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4413638d35833c459e8dafda46d0e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DynamicTrigger
+  retrigger: 0
+  triggerEffects:
+  - rid: 470330638993195071
+  - rid: 470330638993195073
+  - rid: 470330638993195074
+  - rid: 470330638993195070
+  references:
+    version: 2
+    RefIds:
+    - rid: 470330638993195070
+      type: {class: DisplayMessageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: Death text
+        asynchronous: 0
+        duration: 2
+        message: Dead.
+    - rid: 470330638993195071
+      type: {class: LookAtEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: Look upwards
+        asynchronous: 1
+        lerpDuration: 2
+        lerpCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        lookAt: {fileID: 1534732571825955316}
+    - rid: 470330638993195073
+      type: {class: FadeOutEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: FadeOut
+        asynchronous: 0
+        duration: 1.5
+        fadeOut: 1
+        faderColor: {r: 0.4867924, g: 0, b: 0, a: 1}
+    - rid: 470330638993195074
+      type: {class: WaitEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: Pause a second
+        asynchronous: 0
+        duration: 1
 --- !u!1 &2631904480747461735
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,6 +6271,37 @@ Transform:
   m_Children:
   - {fileID: 8985997336443318437}
   m_Father: {fileID: 9025807332422220401}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3363404754361024278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1534732571825955316}
+  m_Layer: 0
+  m_Name: Transform Above Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1534732571825955316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363404754361024278}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5684716531877076424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3379873613614903768
 GameObject:
@@ -6802,7 +6938,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7702536125215543682}
   m_Father: {fileID: 5684716531877076424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8101585473826917001
@@ -6976,6 +7113,7 @@ Transform:
   - {fileID: 6204027628928032291}
   - {fileID: 7255343323847724379}
   - {fileID: 6136165290010493905}
+  - {fileID: 1534732571825955316}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8779969573962376316
@@ -7113,6 +7251,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 31db6134bd7fb50479be6c10ff42521a, type: 3}
   footstepInterval: 0.5
   sprintStepMultiplier: 0.75
+  footPushForce: 4
+  maxPushMass: 40
+  footContactHeightRatio: 0.35
+  pushableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1799329054352702584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7834,7 +7978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHP
   maxHP: 20
   currentHP: 20
-  deathCutscene: {fileID: 0}
+  deathCutscene: {fileID: 6449929237157920410}
   hitFlash: {fileID: 8101585473826917001}
   invincibilitySeconds: 2
 --- !u!136 &5105743012774752176
@@ -7857,7 +8001,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.6
-  m_Height: 2.1
+  m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8716581867119517746

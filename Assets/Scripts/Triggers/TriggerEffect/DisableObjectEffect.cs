@@ -11,6 +11,7 @@ public class DisableObjectEffect : TriggerEffect
         foreach(var item in objects)
         {
             item.gameObject.SetActive(enable);
+            Debug.Log("Enabling an object via trigger");
         }
 
         yield return null;

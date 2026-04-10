@@ -8,11 +8,15 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] DynamicTrigger deathCutscene; //when the player dies, trigger this cutscene
     [SerializeField] DynamicTrigger hitFlash;
     [SerializeField] float invincibilitySeconds;
+
     public int CurrentHP => currentHP;
     private float timeSinceDamage;
     void Start()
     {
         timeSinceDamage = invincibilitySeconds; //set it equal at start so the player can take damage immediately.
+    
+        HealthBar.i.setMaxHealth(maxHP);
+        HealthBar.i.updateCurrentHealth(currentHP);
     }
     void Update()
     {
@@ -38,6 +42,8 @@ public class PlayerHP : MonoBehaviour
         currentHP -= amount;
         Debug.Log($"Player took {amount} damage and now has {currentHP} remaining.");
         
+        HealthBar.i.updateCurrentHealth(currentHP);
+
         if(currentHP <= 0)
         {
             deathCutscene.externalTriggerActivated();
