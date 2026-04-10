@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHP : MonoBehaviour
@@ -17,6 +18,8 @@ public class PlayerHP : MonoBehaviour
     
         HealthBar.i.setMaxHealth(maxHP);
         HealthBar.i.updateCurrentHealth(currentHP);
+    
+        StartCoroutine(regenHealth()); //start the regen health process asynchronously.
     }
     void Update()
     {
@@ -52,6 +55,32 @@ public class PlayerHP : MonoBehaviour
         {
             //play the damage red flash
             hitFlash.externalTriggerActivated();
+        }
+    }
+    public void healHealth(int amount)
+    {
+        currentHP = Math.Min(maxHP, currentHP + amount); //cap at maximum health
+
+        HealthBar.i.updateCurrentHealth(currentHP);
+    }
+    private IEnumerator regenHealth()
+    {
+        //player innately regains health up to half their bar (like GTAV),
+        //in increments of 1 every 10sec. (subject to balancing changes)
+
+        float timeSinceHealIncrement = 0f;
+        const float healTimeThreshold = 10f;
+        const int healAmount = 1;
+        while(currentHP > 0)
+        {
+            timeSinceHealIncrement += Time.deltaTime;
+            if(timeSinceHealIncrement >= healTimeThreshold && currentHP < (maxHP / 2))
+            {
+                timeSinceHealIncrement = 0f;
+                healHealth(healAmount);
+            }
+
+            yield return null;
         }
     }
 }
