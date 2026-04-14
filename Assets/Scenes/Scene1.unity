@@ -4000,11 +4000,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7847354932518693938, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: areaText
-      value: Demo Scene
+      value: Foyer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847354932518693938, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
+      propertyPath: sceneAdditiveName
+      value: Foyer_01
       objectReference: {fileID: 0}
     - target: {fileID: 7847354932518693938, guid: dbcd4912b1dc82d46ab8406f3b94650f, type: 3}
       propertyPath: teleportPosition.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
