@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 24898
+  controlID: 100
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 112}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 24899
+  controlID: 55
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 24900
+  controlID: 45
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -252,17 +252,7 @@ MonoBehaviour:
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -119942
-      - m_Data: -90230
-      - m_Data: -56040
-      - m_Data: -48474
-      - m_Data: -47748
-      - m_Data: -12720
-      - m_Data: -7604
-      - m_Data: -6674
-      - m_Data: -5826
-      - m_Data: -1296
-      - m_Data: 67292
+      - m_Data: -1602
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1158,7 +1148,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 3
     m_Folders:
-    - Assets/Scripts
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1168,7 +1158,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Scripts
+  - Assets
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\SGD\spring-2026-threshold
   m_LockTracker:
@@ -1177,15 +1167,15 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 127}
     m_SelectedIDs:
-    - m_Data: 49772
+    - m_Data: 49396
     m_LastClickedID:
-      m_Data: 49772
+      m_Data: 49396
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49768
-    - m_Data: 49770
-    - m_Data: 49772
-    - m_Data: 49774
+    - m_Data: 49396
+    - m_Data: 49398
+    - m_Data: 49400
+    - m_Data: 49402
     - m_Data: 1000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1219,11 +1209,10 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49768
-    - m_Data: 49770
-    - m_Data: 49772
-    - m_Data: 49774
-    - m_Data: 1000000000
+    - m_Data: 49396
+    - m_Data: 49398
+    - m_Data: 49400
+    - m_Data: 49402
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1251,8 +1240,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: -56366
-    m_LastClickedInstanceID: -56366
+    - m_Data: 47604
+    m_LastClickedInstanceID: 47604
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs:
     - m_Data: 49530
@@ -1286,7 +1275,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 58.400024}
+    m_ScrollPosition: {x: 0, y: 183.40002}
     m_GridSize: 96
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 231
@@ -1347,8 +1336,8 @@ MonoBehaviour:
     y: 0
     width: 362.40002
     height: 724.8
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -1399,7 +1388,7 @@ MonoBehaviour:
     m_CachedPref: -163
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -56366
+  m_LastInspectedObjectInstanceID: 47604
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
