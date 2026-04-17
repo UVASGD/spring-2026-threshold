@@ -9,6 +9,7 @@ public class ChaosMeter : MonoBehaviour
 {
     public static ChaosMeter i;
     private Slider slider; //slider is configured to have a maximum value of 1000.
+    private bool hasBeenRevealed;
     [SerializeField] TMP_Text stateText;
 
     [SerializeField] List<Color> colors;
@@ -23,10 +24,22 @@ public class ChaosMeter : MonoBehaviour
         if(i==null) i = this;
 
         slider = GetComponent<Slider>();
+        gameObject.SetActive(false);
     }
 
     public void updateChaosMeter(float newValue)
     {
+        if(!hasBeenRevealed && newValue > 10f)
+        {
+            hasBeenRevealed = true;
+            gameObject.SetActive(true);
+        }
+
+        if(!hasBeenRevealed)
+        {
+            return;
+        }
+
         newValue = Mathf.Min(newValue, 1000);
         slider.value = newValue; //update the UI.
 
