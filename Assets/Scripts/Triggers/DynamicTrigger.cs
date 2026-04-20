@@ -33,7 +33,7 @@ public class DynamicTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Generic trigger entered");
+            Debug.Log("Trigger entered");
             StartCoroutine(runEffects());
         }
     }
