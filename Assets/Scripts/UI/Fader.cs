@@ -15,7 +15,11 @@ public class Fader : MonoBehaviour
         
         lerpImage = GetComponent<Image>();
     }
-
+    //used on the title screen when starting a new game
+    public void fadeOutNonCoroutine()
+    {
+        StartCoroutine(fadeOut(2f));
+    }
     //fadeout/fadein transitions
     public IEnumerator fadeOut(float lerpTime)
     {

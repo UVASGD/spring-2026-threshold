@@ -5376,6 +5376,8 @@ MonoBehaviour:
   lookLayer:
     serializedVersion: 2
     m_Bits: 256
+  cutsceneTrigger: {fileID: 0}
+  lookTargetCollider: {fileID: 0}
 --- !u!114 &3131421369245626141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7089,6 +7091,7 @@ GameObject:
   - component: {fileID: 7960513538314767790}
   - component: {fileID: 3194462696095937451}
   - component: {fileID: 3103844871248469167}
+  - component: {fileID: 413103249473305495}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7398,6 +7401,20 @@ MonoBehaviour:
   grabRange: 5
   attractionSpeed: 15
   maxHoldDistance: 2.5
+--- !u!114 &413103249473305495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766625369763935388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acf8225badac9f46ade26b11f3a5426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundMusicManager
+  bgmSource: {fileID: 3194462696095937451}
+  fadeTime: 1
 --- !u!1 &6786042463102049566
 GameObject:
   m_ObjectHideFlags: 0

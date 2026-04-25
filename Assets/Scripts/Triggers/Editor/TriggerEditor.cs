@@ -30,7 +30,9 @@ public class TriggerEditor : Editor
             "Close a door",
             "Drop Current Physics Object",
             "Lerp Objects",
-            "Apply Impulse"
+            "Apply Impulse",
+            "Change BGM",
+            "Pause/Resume BGM"
         };
 
         Action[] effectActions;
@@ -50,7 +52,9 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new CloseDoorEffect()),
                 () => dynamicTrigger.addEffect(new DropPhysicsEffect()),
                 () => dynamicTrigger.addEffect(new LerpObjectEffect()),
-                () => dynamicTrigger.addEffect(new ApplyForceEffect())
+                () => dynamicTrigger.addEffect(new ApplyForceEffect()),
+                () => dynamicTrigger.addEffect(new ChangeBGMEffect()),
+                () => dynamicTrigger.addEffect(new StopMusicEffect())
             };
         }
         else

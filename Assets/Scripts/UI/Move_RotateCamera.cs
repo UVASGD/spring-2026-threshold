@@ -10,7 +10,7 @@ public class Move_RotateCamera : MonoBehaviour
     [SerializeField] Camera movedCamera;
     [SerializeField] AnimationCurve lerpCurve; //for smoother animated linear interpolation
     Coroutine activeMove;
-    
+
     [Header("Credits Position")]
     [SerializeField] Transform creditsPosition;
     [SerializeField] Transform lookAtCredits;
@@ -66,7 +66,7 @@ public class Move_RotateCamera : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startPos = movedCamera.transform.position;
         Quaternion startRot = movedCamera.transform.rotation;
-        while(elapsedTime < movementData.lerpTime)
+        while (elapsedTime < movementData.lerpTime)
         {
             elapsedTime += Time.deltaTime;
             float lerpPercent = elapsedTime / movementData.lerpTime;
@@ -100,7 +100,13 @@ public class Move_RotateCamera : MonoBehaviour
     }
 
     [SerializeField] string introSceneName;
-    public void LoadIntroScene(){
+    public void LoadIntroScene()
+    {
+        StartCoroutine(startNewGame());
+    }
+    private IEnumerator startNewGame()
+    {
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(introSceneName);
     }
 }
