@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346710705df9660428e847709b381812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NotePopup
-  noteSFX: {fileID: 0}
+  noteSFX: {fileID: 8300000, guid: 864c3b61322454a4ca3534c2d220d288, type: 3}
   noteText: {fileID: 2780736116589568073}
   graphicsParent: {fileID: 2461631204897044335}
 --- !u!1 &1248302491374168090

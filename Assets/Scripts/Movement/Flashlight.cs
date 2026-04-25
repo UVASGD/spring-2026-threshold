@@ -111,6 +111,7 @@ public class Flashlight : MonoBehaviour
                 flickerCoroutine = null;
             }
         }
+
     }
 
     public void Toggle()

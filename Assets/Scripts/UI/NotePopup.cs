@@ -28,10 +28,11 @@ public class NotePopup : MonoBehaviour, ISFXGenerator
             FirstPersonController.i.changePlayerControlState(true); //give them back control state
         }
 
-        //PlayLocalSFX();
+        PlayLocalSFX(noteSFX);
     }
     public void PlayLocalSFX(AudioClip clip){
-
+        if (clip == null || PlayerSFX.i == null) return;
+        PlayerSFX.i.PlaySFX(clip);
     }
 
     private float _noteCloseDelay = 0.5f;
