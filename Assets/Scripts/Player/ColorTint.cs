@@ -4,6 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 public class ColorTint : MonoBehaviour
 {
+    public static ColorTint i;
     [SerializeField] Volume volume;
     [SerializeField] Color tintColor = Color.white;
 
@@ -11,6 +12,7 @@ public class ColorTint : MonoBehaviour
 
     private void Awake()
     {
+        if(i==null) i = this;
         CacheColorAdjustments();
     }
 

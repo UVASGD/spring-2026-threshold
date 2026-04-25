@@ -32,7 +32,8 @@ public class TriggerEditor : Editor
             "Lerp Objects",
             "Apply Impulse",
             "Change BGM",
-            "Pause/Resume BGM"
+            "Pause/Resume BGM",
+            "Apply Screen Color Tint"
         };
 
         Action[] effectActions;
@@ -54,7 +55,8 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new LerpObjectEffect()),
                 () => dynamicTrigger.addEffect(new ApplyForceEffect()),
                 () => dynamicTrigger.addEffect(new ChangeBGMEffect()),
-                () => dynamicTrigger.addEffect(new StopMusicEffect())
+                () => dynamicTrigger.addEffect(new StopMusicEffect()),
+                () => dynamicTrigger.addEffect(new ColorTintEffect())
             };
         }
         else
