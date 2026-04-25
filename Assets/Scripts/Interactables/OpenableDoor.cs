@@ -26,6 +26,7 @@ public class OpenableDoor : MonoBehaviour, IInteract, ISFXGenerator
     private Quaternion openRotation;
     private float openSignedAngle = 0f;
     private float hingeAngleCurrent = 0f;
+    private Coroutine activeDoorMotion;
 
     private void Start()
     {
@@ -51,14 +52,14 @@ public class OpenableDoor : MonoBehaviour, IInteract, ISFXGenerator
                 PlayLocalSFX(doorUnlock);
                 if (!openMessage.Equals("")) //if the message is not blank
                 {
-                    StartCoroutine(MessageManager.i.DisplayText(openMessage, 1));
+                    ShowMessage(openMessage, 1);
                 }
                 return;
             }
             else
             {
                 PlayLocalSFX(doorRattle);
-                StartCoroutine(MessageManager.i.DisplayText(lockedMessage, 2));
+                ShowMessage(lockedMessage, 2);
                 return;
             }
         }
@@ -74,15 +75,30 @@ public class OpenableDoor : MonoBehaviour, IInteract, ISFXGenerator
             PlayLocalSFX(closeDoor);
         }
 
-        StopAllCoroutines();
         if (hingeTransform != null)
         {
-            StartCoroutine(RotateDoorAroundHinge(isOpen ? openSignedAngle : 0f));
+            StartDoorMotion(RotateDoorAroundHinge(isOpen ? openSignedAngle : 0f));
         }
         else
         {
-            StartCoroutine(RotateDoor(isOpen ? openRotation : closedRotation));
+            StartDoorMotion(RotateDoor(isOpen ? openRotation : closedRotation));
         }
+    }
+
+    private void ShowMessage(string message, int seconds)
+    {
+        if (MessageManager.i == null || string.IsNullOrEmpty(message)) return;
+        MessageManager.i.StartCoroutine(MessageManager.i.DisplayText(message, seconds));
+    }
+
+    private void StartDoorMotion(IEnumerator routine)
+    {
+        if (activeDoorMotion != null)
+        {
+            StopCoroutine(activeDoorMotion);
+        }
+
+        activeDoorMotion = StartCoroutine(routine);
     }
     private bool CheckKeys()
     {
@@ -163,11 +179,10 @@ public class OpenableDoor : MonoBehaviour, IInteract, ISFXGenerator
         else
         {
             isOpen = false;
-            StopAllCoroutines();
             if (hingeTransform != null)
             {
                 PlayLocalSFX(closeDoor);
-                StartCoroutine(RotateDoorAroundHinge(isOpen ? openSignedAngle : 0f));
+                StartDoorMotion(RotateDoorAroundHinge(isOpen ? openSignedAngle : 0f));
             }
         }
     }
