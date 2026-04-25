@@ -7250,9 +7250,19 @@ MonoBehaviour:
   interactDistance: 3
   footstepSource: {fileID: 125877693482864095}
   footstepClips:
-  - {fileID: 8300000, guid: 7a6b6e763d2a80644abaefe67599ef60, type: 3}
-  - {fileID: 8300000, guid: cd53a4420dacc854b887e0dd2bf0b7ee, type: 3}
-  - {fileID: 8300000, guid: 31db6134bd7fb50479be6c10ff42521a, type: 3}
+  - {fileID: 8300000, guid: ffb670c8591a92741a501b88b1380d33, type: 3}
+  - {fileID: 8300000, guid: 28abb3a80ce0bb64ca5e8f074248d3aa, type: 3}
+  - {fileID: 8300000, guid: a6fcc99567c404844b89b5b64092b795, type: 3}
+  - {fileID: 8300000, guid: 2994559acd7ee1747b359b845cb4bea9, type: 3}
+  - {fileID: 8300000, guid: 307f1d00a71933a40902139bf8df6598, type: 3}
+  - {fileID: 8300000, guid: aa4e272fa6a47154694730ca028f1390, type: 3}
+  - {fileID: 8300000, guid: 8bde2806d0ef17445bbe0a01d7cb095f, type: 3}
+  - {fileID: 8300000, guid: 0b33f11132e0ea844ae1f635ae0e6510, type: 3}
+  - {fileID: 8300000, guid: 957f84316113b504ba144c155664b3ad, type: 3}
+  - {fileID: 8300000, guid: 56f285a1566c77b459cfe2abcd2acdad, type: 3}
+  - {fileID: 8300000, guid: d105756f8218fd7418ae1aae0e9bf65d, type: 3}
+  - {fileID: 8300000, guid: b2d6acd7d80195746bb5d64ba211e471, type: 3}
+  - {fileID: 8300000, guid: d5cc426de1e78d94d90ca52cd269ddbb, type: 3}
   footstepInterval: 0.5
   sprintStepMultiplier: 0.75
   footPushForce: 4
@@ -7300,7 +7310,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.8
   Loop: 0
   Mute: 0
   Spatialize: 0
