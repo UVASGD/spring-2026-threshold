@@ -236,12 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExpositionTextWriter
   introExposition:
-  - Since the 18th century lived a family in a Appalachian shack.
-  - Local folklore says this house was larger on the inside than outside, and could
-    expand at will.
-  - Long ago Jed Dunnery went missing in this residence.
-  - Decades have passed and nobody has found him.
-  - Can you?
+  - On a July night, while walking in a forest...
   textOutput: {fileID: 882026951}
   characterDelay: 0.07
   lineDelay: 1.5

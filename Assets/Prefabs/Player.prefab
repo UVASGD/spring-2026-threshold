@@ -8028,8 +8028,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
-  m_Height: 2.2
+  m_Radius: 1
+  m_Height: 2.3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8716581867119517746
@@ -8309,6 +8309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2137036575936081277}
   - component: {fileID: 1701355128290017892}
+  - component: {fileID: 6546896649683763511}
   m_Layer: 0
   m_Name: RedTint
   m_TagString: Untagged
@@ -8348,6 +8349,20 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 129f6e8594489fd4d890423cf429a9f1, type: 2}
+--- !u!114 &6546896649683763511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962980496922724374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00256d6311c083846b07a97d1550aeaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColorTint
+  volume: {fileID: 1701355128290017892}
+  tintColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &9001651050319794331
 GameObject:
   m_ObjectHideFlags: 0

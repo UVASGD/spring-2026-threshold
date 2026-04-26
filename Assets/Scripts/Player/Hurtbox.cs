@@ -17,6 +17,7 @@ public class Hurtbox : MonoBehaviour
     }
     public int dealDamage()
     {
+        Debug.Log("Dealing damage to player");
         if(damageClip != null) PlayerSFX.i.PlaySFX(damageClip);
         if(!velocityDependent) return (int)damageDealt;
         else

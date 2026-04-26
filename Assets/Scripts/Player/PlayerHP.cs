@@ -27,11 +27,22 @@ public class PlayerHP : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Hurtbox")
-        {
-            Debug.Log("Hurtbox hit");
-            takeDamage(other.gameObject.GetComponent<Hurtbox>().dealDamage());
-        }
+        TryTakeHurtboxDamage(other);
+    }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        TryTakeHurtboxDamage(hit.collider);
+    }
+    private void TryTakeHurtboxDamage(Collider other)
+    {
+        if(!other.CompareTag("Hurtbox")) return;
+
+        Hurtbox hurtbox = other.GetComponent<Hurtbox>();
+        if(hurtbox == null) hurtbox = other.GetComponentInParent<Hurtbox>();
+        if(hurtbox == null) return;
+
+        Debug.Log("Hurtbox hit");
+        takeDamage(hurtbox.dealDamage());
     }
     public void takeDamage(int amount)
     {
