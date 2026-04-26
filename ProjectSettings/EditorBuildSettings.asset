@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Foyer_01.unity
     guid: 9def50cead5dd1840ba7c66e5413a785
   - enabled: 1
+    path: Assets/Scenes/Hallway.unity
+    guid: 56fd1f486b5243a448a652d21fce964d
+  - enabled: 1
     path: Assets/Scenes/OpeningExposition.unity
     guid: f128231611697b24b9dffb5c47daa1c5
   m_configObjects:
