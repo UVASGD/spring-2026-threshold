@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WorldspaceCensor : MonoBehaviour
 {
@@ -23,8 +24,27 @@ public class WorldspaceCensor : MonoBehaviour
 
     private List<CensorSticker> _stickers = new List<CensorSticker>();
 
-    void Start()
+    void OnEnable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        RebuildStickers();
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        ClearStickers();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RebuildStickers();
+    }
+
+    private void RebuildStickers()
+    {
+        ClearStickers();
+
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag(targetTag))
         {
             Renderer r = obj.GetComponentInChildren<Renderer>();
@@ -32,8 +52,11 @@ public class WorldspaceCensor : MonoBehaviour
 
             GameObject sticker = GameObject.CreatePrimitive(PrimitiveType.Quad);
             Destroy(sticker.GetComponent<MeshCollider>());
-            
-            sticker.GetComponent<Renderer>().material = censorMaterial;
+
+            Renderer stickerRenderer = sticker.GetComponent<Renderer>();
+            if (stickerRenderer != null)
+                stickerRenderer.material = censorMaterial;
+
             sticker.transform.SetParent(obj.transform);
 
             _stickers.Add(new CensorSticker {
@@ -42,6 +65,17 @@ public class WorldspaceCensor : MonoBehaviour
                 stickerObject = sticker
             });
         }
+    }
+
+    private void ClearStickers()
+    {
+        foreach (var s in _stickers)
+        {
+            if (s != null && s.stickerObject != null)
+                Destroy(s.stickerObject);
+        }
+
+        _stickers.Clear();
     }
 
     void LateUpdate()

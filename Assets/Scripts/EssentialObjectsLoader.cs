@@ -4,15 +4,32 @@ using UnityEngine;
 public class EssentialObjectsLoader : MonoBehaviour
 {
     [SerializeField] GameObject essentialObjectPrefab;
+    [SerializeField] bool repositionExistingEssentialObjects = true;
+
+    private void SnapToLoaderTransform(Transform target)
+    {
+        if (target == null) return;
+
+        target.position = transform.position;
+        target.rotation = transform.rotation;
+    }
+
     void Awake()
     {
         if(EssentialObjects.i == null)
-        {   Debug.Log("Instantiating a new EssentialObjects instance");
+        {
+            Debug.Log("Instantiating a new EssentialObjects instance");
             //if there is no essentialObjects in existence at the moment
-            Instantiate(essentialObjectPrefab).transform.position = this.transform.position;
+            GameObject instance = Instantiate(essentialObjectPrefab);
+            SnapToLoaderTransform(instance.transform);
         }
         else
         {
+            if (repositionExistingEssentialObjects)
+            {
+                SnapToLoaderTransform(EssentialObjects.i.transform);
+            }
+
             Destroy(this.gameObject);
         }
     }

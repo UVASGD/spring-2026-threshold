@@ -33,7 +33,10 @@ public class TriggerEditor : Editor
             "Apply Impulse",
             "Change BGM",
             "Pause/Resume BGM",
-            "Apply Screen Color Tint"
+            "Apply Screen Color Tint",
+            "Kill Player",
+            "Stop Another Cutscene",
+            "Close the game"
         };
 
         Action[] effectActions;
@@ -56,7 +59,10 @@ public class TriggerEditor : Editor
                 () => dynamicTrigger.addEffect(new ApplyForceEffect()),
                 () => dynamicTrigger.addEffect(new ChangeBGMEffect()),
                 () => dynamicTrigger.addEffect(new StopMusicEffect()),
-                () => dynamicTrigger.addEffect(new ColorTintEffect())
+                () => dynamicTrigger.addEffect(new ColorTintEffect()),
+                () => dynamicTrigger.addEffect(new InstantDeathEffect()),
+                () => dynamicTrigger.addEffect(new StopOtherCutscene()),
+                () => dynamicTrigger.addEffect(new CloseGame())
             };
         }
         else

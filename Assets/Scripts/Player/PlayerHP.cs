@@ -35,6 +35,14 @@ public class PlayerHP : MonoBehaviour
     }
     private void TryTakeHurtboxDamage(Collider other)
     {
+        InstantDeathScript instantDeath = other.GetComponent<InstantDeathScript>();
+        if(instantDeath == null) instantDeath = other.GetComponentInParent<InstantDeathScript>();
+        if(instantDeath != null)
+        {
+            instantDeath.ActivateInstantDeath(this);
+            return;
+        }
+
         if(!other.CompareTag("Hurtbox")) return;
 
         Hurtbox hurtbox = other.GetComponent<Hurtbox>();
@@ -67,6 +75,14 @@ public class PlayerHP : MonoBehaviour
             //play the damage red flash
             hitFlash.externalTriggerActivated();
         }
+    }
+    public void forceKill()
+    {
+        if(currentHP <= 0) return;
+
+        currentHP = 0;
+        HealthBar.i.updateCurrentHealth(currentHP);
+        deathCutscene.externalTriggerActivated();
     }
     public void healHealth(int amount)
     {

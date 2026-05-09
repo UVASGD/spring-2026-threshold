@@ -7,6 +7,24 @@ public class DynamicTrigger : MonoBehaviour
     [SerializeField] bool retrigger; //if false, disable the trigger after it is triggered once
     [SerializeReference]
     [SerializeField] List<TriggerEffect> triggerEffects = new List<TriggerEffect>();
+    private Coroutine activeEffectsCoroutine;
+
+    public bool IsRunning => activeEffectsCoroutine != null;
+
+    public void StartEffects()
+    {
+        if(activeEffectsCoroutine != null) return;
+        activeEffectsCoroutine = StartCoroutine(runEffects());
+    }
+
+    public void StopEffects()
+    {
+        if(activeEffectsCoroutine == null) return;
+
+        StopAllCoroutines();
+        activeEffectsCoroutine = null;
+    }
+
     public IEnumerator runEffects()
     {
         foreach (var effect in triggerEffects)
@@ -23,6 +41,7 @@ public class DynamicTrigger : MonoBehaviour
         }
 
         gameObject.SetActive(retrigger); //set to inactive if retrigger is false
+        activeEffectsCoroutine = null;
     }
     public void addEffect(TriggerEffect effect)
     {
@@ -34,7 +53,7 @@ public class DynamicTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("Trigger entered");
-            StartCoroutine(runEffects());
+            StartEffects();
         }
     }
 
